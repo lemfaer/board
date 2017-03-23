@@ -1,6 +1,7 @@
 <?php
 
 spl_autoload_register(function ($cls) {
+	$cls = "\\" . ltrim($cls, "\\");
 	$rel = str_replace("\\", DIRECTORY_SEPARATOR, $cls);
 	$abs = implode(DIRECTORY_SEPARATOR, [ __DIR__, $rel ]) . ".php";
 
