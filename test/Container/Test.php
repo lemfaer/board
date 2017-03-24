@@ -24,7 +24,7 @@ class Test {
 
 	function test_get_value() {
 		$con = new Container();
-		$con->set("test1", "test2");
+		$con["test1"] = "test2";
 		$val = $con->get("test1");
 		assert($val === "test2");
 	}

@@ -8,26 +8,25 @@ use Psr\Container\NotFoundExceptionInterface;
 
 use Throwable;
 use Exception;
+use ArrayObject;
 use ReflectionClass;
 
-class Container implements ContainerInterface {
+class Container extends ArrayObject implements ContainerInterface {
 
-	protected $vals = [];
-
-	public function __construct() {
-		$this->vals = [];
-		$this->vals[get_class()] = $this;
+	public function __construct($vals = []) {
+		parent::__construct($vals);
+		$this[get_class()] = $this;
 	}
 
 	/** {@inheritDoc} */
 	public function has($id) {
-		return isset($this->vals[$id]) || class_exists($id);
+		return isset($this[$id]) || class_exists($id);
 	}
 
 	/** {@inheritDoc} */
 	public function get($id) {
-		if (isset($this->vals[$id])) {
-			return $this->vals[$id];
+		if (isset($this[$id])) {
+			return $this[$id];
 		}
 
 		if (!class_exists($id)) {
@@ -64,20 +63,6 @@ class Container implements ContainerInterface {
 				extends Exception
 				implements ContainerExceptionInterface {};
 		}
-	}
-
-	/**
-	 * Sets an entry of the container.
-	 *
-	 * @param string $id Identifier of the entry to look for.
-	 * @param mixed $val Value to set.
-	 *
-	 * @throws ContainerExceptionInterface Error while setting a value.
-	 *
-	 * @return void
-	 */
-	public function set($id, $val) {
-		$this->vals[$id] = $val;
 	}
 
 }
