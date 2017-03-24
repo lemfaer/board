@@ -57,7 +57,9 @@ class Container extends ArrayObject implements ContainerInterface {
 				throw new Exception($message);
 			}
 
-			return new $id(...$pars);
+			$obj = new $id(...$pars);
+			$this[$id] = $obj;
+			return $obj;
 		} catch (Throwable $e) {
 			throw new class("", 0, $e)
 				extends Exception

@@ -22,11 +22,20 @@ class Test {
 		assert($b instanceof MockB);
 	}
 
+	function test_get_object_same() {
+		$con = new Container();
+
+		$o1 = $con->get(MockA::class);
+		$o2 = $con->get(MockA::class);
+
+		assert($o1 === $o2);
+	}
+
 	function test_get_value() {
 		$con = new Container();
-		$con["test1"] = "test2";
-		$val = $con->get("test1");
-		assert($val === "test2");
+		$con["key"] = "val";
+		$val = $con->get("key");
+		assert($val === "val");
 	}
 
 }
