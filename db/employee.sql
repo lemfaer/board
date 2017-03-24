@@ -1,0 +1,11 @@
+CREATE TABLE employee (
+	id      INTEGER      NOT NULL AUTO_INCREMENT PRIMARY KEY,
+	name    VARCHAR(255) NOT NULL,
+	email   VARCHAR(255) NOT NULL,
+	pass    VARCHAR(255) NOT NULL,
+	access  INTEGER      NOT NULL,
+	created TIMESTAMP    NOT NULL DEFAULT now(),
+	updated TIMESTAMP    NOT NULL DEFAULT now() ON UPDATE now()
+)
+
+ENGINE = InnoDB;
