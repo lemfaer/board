@@ -2,6 +2,8 @@
 
 namespace Board\Service;
 
+use ArrayObject;
+
 class Config extends ArrayObject {
 
 	public function __construct($conf = []) {
