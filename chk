@@ -1,0 +1,28 @@
+#!/usr/bin/php7.1
+<?php
+
+require __DIR__ . "/inc/autoload.php";
+require __DIR__ . "/src/autoload.php";
+require __DIR__ . "/test/autoload.php";
+
+ini_set("assert.exception", "1");
+
+$tests = [
+	\Board\Test\Container\Test::class => [
+		"test_get_object", "test_get_object_dep", "test_get_object_same", "test_get_value"
+	],
+	\Board\Test\Router\Test::class => [
+		"test_dispatch_method", "test_dispatch_uri", "test_dispatch_uri_params"
+	]
+];
+
+foreach ($tests as $cls => $meths) {
+	$obj = new $cls();
+
+	foreach ($meths as $meth) {
+		call_user_func([ $obj, $meth ]);
+		print("$cls $meth passed\n");
+	}
+}
+
+print("all tests passed\n");
