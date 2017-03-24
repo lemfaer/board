@@ -13,7 +13,7 @@ use ReflectionClass;
 
 class Container extends ArrayObject implements ContainerInterface {
 
-	public function __construct($vals = []) {
+	public function __construct(array $vals = []) {
 		parent::__construct($vals);
 		$this[get_class()] = $this;
 	}

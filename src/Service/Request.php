@@ -6,7 +6,7 @@ use ArrayObject;
 
 class Request extends ArrayObject {
 
-	public function __construct($request = null) {
+	public function __construct(array $request = null) {
 		if ($request === null) {
 			$request = $_REQUEST;
 		}
