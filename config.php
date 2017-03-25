@@ -3,6 +3,7 @@
 return [
 
 	"app" => [
+		"domain" => $_SERVER["HTTP_HOST"],
 		"root" => __DIR__,
 		"inc" => __DIR__ . "/inc",
 		"src" => __DIR__ . "/src",
