@@ -4,11 +4,11 @@ namespace Board\Service;
 
 class Router {
 
-	protected $routes;
+	protected $conf;
 	protected $container;
 
 	public function __construct(Container $container, Config $conf) {
-		$this->routes = $conf["routes"];
+		$this->conf = $conf;
 		$this->container = $container;
 	}
 
@@ -21,7 +21,7 @@ class Router {
 	 * @return mixed
 	 */
 	public function dispatch(string $method, string $uri) {
-		$routes = array_filter($this->routes, function ($route) use ($method, $uri) {
+		$routes = array_filter($this->conf["routes"], function ($route) use ($method, $uri) {
 			[ $rmethod, $rpattern ] = $route;
 			return $rmethod === $method && preg_match($rpattern, $uri) === 1;
 		});
