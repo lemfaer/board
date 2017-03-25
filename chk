@@ -5,7 +5,13 @@ require __DIR__ . "/inc/autoload.php";
 require __DIR__ . "/src/autoload.php";
 require __DIR__ . "/test/autoload.php";
 
-ini_set("assert.exception", "1");
+if (intval(ini_get("zend.assertions")) < 1) {
+	print("zend.assertions isn't set to 1, please check php.ini\n");
+	die;
+}
+
+ini_set("assert.active", 1);
+ini_set("assert.exception", 1);
 
 $tests = [
 	\Board\Test\Container\Test::class => [
