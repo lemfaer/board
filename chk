@@ -26,6 +26,9 @@ $tests = [
 	\Board\Test\Session\Test::class => [
 		"test_array_set", "test_array_set_key", "test_array_isset", "test_array_unset",
 		"test_iterator", "test_count"
+	],
+	\Board\Test\Message\Test::class => [
+		"test_message", "test_pop_all", "test_flush"
 	]
 ];
 
