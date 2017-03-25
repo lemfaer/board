@@ -17,6 +17,10 @@ $tests = [
 	\Board\Test\View\Test::class => [
 		"test_view", "test_view_params"
 	],
+	\Board\Test\Session\Test::class => [
+		"test_array_set", "test_array_set_key", "test_array_isset", "test_array_unset",
+		"test_iterator", "test_count"
+	]
 ];
 
 foreach ($tests as $cls => $meths) {
