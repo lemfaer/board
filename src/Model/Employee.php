@@ -22,6 +22,37 @@ class Employee {
 	}
 
 	/**
+	 * Imports array values
+	 * @param array $employee
+	 * @return void
+	 */
+	public function from_array(array $employee) {
+		$this->id      = intval($employee["id"]);
+		$this->name    = strval($employee["name"]);
+		$this->email   = strval($employee["email"]);
+		$this->pass    = strval($employee["pass"]);
+		$this->access  = intval($employee["access"]);
+		$this->created = intval($employee["created"]);
+		$this->updated = intval($employee["updated"]);
+	}
+
+	/**
+	 * Exports employee values
+	 * @return array
+	 */
+	public function to_array() {
+		return [
+			"id"      => intval($this->id),
+			"name"    => strval($this->name),
+			"email"   => strval($this->email),
+			"pass"    => strval($this->pass),
+			"access"  => intval($this->access),
+			"created" => intval($this->created),
+			"updated" => intval($this->updated),
+		];
+	}
+
+	/**
 	 * Loads data of employee from database
 	 * @param int $id employee identificator
 	 * @return void
@@ -36,14 +67,7 @@ class Employee {
 		$statm->setFetchMode(PDO::FETCH_ASSOC);
 		$statm->execute([ $id ]);
 		$res = $statm->fetch();
-
-		$this->id      = intval($res["id"]);
-		$this->name    = strval($res["name"]);
-		$this->email   = strval($res["email"]);
-		$this->pass    = strval($res["pass"]);
-		$this->access  = intval($res["access"]);
-		$this->created = intval($res["created"]);
-		$this->updated = intval($res["updated"]);
+		$this->from_array($res);
 	}
 
 	/**
@@ -61,13 +85,9 @@ class Employee {
 		$statm = $this->db->prepare($query);
 		$statm->setFetchMode(PDO::FETCH_ASSOC);
 
-		$binds = [
-			"id"     => intval($this->id),
-			"name"   => strval($this->name),
-			"email"  => strval($this->email),
-			"pass"   => strval($this->pass),
-			"access" => intval($this->access)
-		];
+		$binds = $this->to_array();
+		unset($binds["created"]);
+		unset($binds["updated"]);
 
 		$statm->execute($binds);
 	}
