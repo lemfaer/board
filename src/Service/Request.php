@@ -6,12 +6,17 @@ use ArrayObject;
 
 class Request extends ArrayObject {
 
-	public function __construct(array $request = null) {
-		if ($request === null) {
-			$request = $_REQUEST;
+	public function __construct(string $method = null, array $params = null) {
+		if ($method === null) {
+			$method = $_SERVER["REQUEST_METHOD"];
 		}
 
-		parent::__construct($request);
+		if ($params === null) {
+			$params = $_REQUEST;
+		}
+
+		parent::__construct($params);
+		$this["method"] = $method;
 	}
 
 }
