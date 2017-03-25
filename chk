@@ -13,7 +13,10 @@ $tests = [
 	],
 	\Board\Test\Router\Test::class => [
 		"test_dispatch_method", "test_dispatch_uri", "test_dispatch_uri_params"
-	]
+	],
+	\Board\Test\View\Test::class => [
+		"test_view", "test_view_params"
+	],
 ];
 
 foreach ($tests as $cls => $meths) {

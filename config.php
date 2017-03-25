@@ -2,6 +2,14 @@
 
 return [
 
+	"app" => [
+		"root" => __DIR__,
+		"inc" => __DIR__ . "/inc",
+		"src" => __DIR__ . "/src",
+		"test" => __DIR__ . "/test",
+		"view" => __DIR__ . "/view"
+	],
+
 	"db" => [
 		"host" => "127.0.0.1",
 		"base" => "board",
