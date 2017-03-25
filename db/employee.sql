@@ -3,7 +3,7 @@ CREATE TABLE employee (
 	name    VARCHAR(255) NOT NULL,
 	email   VARCHAR(255) NOT NULL,
 	pass    VARCHAR(255) NOT NULL,
-	access  INTEGER      NOT NULL,
+	access  INTEGER(20)  NOT NULL,
 	created TIMESTAMP    NOT NULL DEFAULT now(),
 	updated TIMESTAMP    NOT NULL DEFAULT now() ON UPDATE now()
 )
