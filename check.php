@@ -1,4 +1,3 @@
-#!/usr/bin/php7.1
 <?php
 
 require __DIR__ . "/inc/autoload.php";
@@ -12,6 +11,9 @@ if (intval(ini_get("zend.assertions")) < 1) {
 
 ini_set("assert.active", 1);
 ini_set("assert.exception", 1);
+ini_set("display_errors", 1);
+ini_set("display_startup_errors", 1);
+error_reporting(E_ALL);
 
 $tests = [
 	\Board\Test\Container\Test::class => [
@@ -37,11 +39,32 @@ $tests = [
 
 foreach ($tests as $cls => $meths) {
 	$obj = new $cls();
-
 	foreach ($meths as $meth) {
 		call_user_func([ $obj, $meth ]);
-		print("$cls $meth passed\n");
 	}
 }
+?>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Test</title>
+</head>
+<body>
+	<div class="tests">
+		<?php foreach ($tests as $cls => $meths): ?>
+			<div class="cls">
+				<span class="title"><?= $cls ?></span>
 
-print("all tests passed\n");
+				<?php foreach ($meths as $meth): ?>
+					<div class="meth" style="margin-left: 20px">
+						<span class="title"><?= $meth ?></span>
+						<span class="status">passed</span>
+					</div>
+				<?php endforeach ?>
+			</div>
+		<?php endforeach ?>
+	</div>
+	<div class="status">All tests passed</div>
+</body>
+</html>
