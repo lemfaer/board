@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Delete Employee</title>
+</head>
+<body>
+	<form method="POST">
+		<div class="text">
+			Are you sure you want to delete employee <?= $employee->name ?>,
+				with id <?= $employee->id ?>
+		</div>
+		<input type="button" value="No" onclick="window.history.back()">
+		<input type="submit" value="Yes">
+	</form>
+</body>
+</html>

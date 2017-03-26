@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Create Employee</title>
+</head>
+<body>
+	<div class="messages">
+		<?php while ($message = $messages->pop()): ?>
+			<div class="message">
+				<span class="title">Message</span>
+				<div class="text"><?= $message ?></div>
+			</div>
+		<?php endwhile ?>
+	</div>
+	<form method="POST">
+		<input type="hidden" name="id" id="emloyee-id" value="<?= $employee->id ?>">
+
+		<div>
+			<label for="emloyee-name">Name</label>
+			<input type="text" name="name" id="emloyee-name" value="<?= $employee->name ?>" required>
+		</div>
+
+		<div>
+			<label for="emloyee-email">Email</label>
+			<input type="email" name="email" id="emloyee-email" value="<?= $employee->email ?>" required>
+		</div>
+
+		<div>
+			<label for="emloyee-pass">Pass</label>
+			<input type="password" name="pass" id="emloyee-pass" value="<?= $employee->pass ?>" required>
+		</div>
+
+		<div>
+			<label>Access</label>
+			<?php foreach ($access as $key => $val): ?>
+				<?php $id = "employee-access-" . implode("-", explode(".", $key)) ?>
+				<?php $has = ($employee->access & $val) === $val ?>
+
+				<div>
+					<input type="checkbox" name="access[<?= $key ?>]" id="<?= $id ?>" <?= $has ? "checked" : null ?>>
+					<label for="<?= $id ?>"><?= $key ?></label>
+				</div>
+			<?php endforeach ?>
+		</div>
+
+		<div>
+			<input type="submit">
+		</div>
+	</form>
+</body>
+</html>

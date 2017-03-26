@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Employee List</title>
+</head>
+<body>
+	<div class="messages">
+		<?php while ($message = $messages->pop()): ?>
+			<div class="message">
+				<span class="title">Message</span>
+				<div class="text"><?= $message ?></div>
+			</div>
+		<?php endwhile ?>
+	</div>
+	<a href="/employee/create">Create</a>
+	<table>
+		<th>
+			<td>ID</td>
+			<td>Name</td>
+			<td>Email</td>
+			<td>Access</td>
+			<td></td>
+			<td></td>
+		</th>
+
+		<?php foreach ($employees as $employee): ?>
+			<tr>
+				<th><?= $employee->id ?></th>
+				<th><?= $employee->name ?></th>
+				<th><?= $employee->email ?></th>
+				<th>
+					<?php foreach ($access as $key => $val): ?>
+						<?php if (($employee->access & $val) === $val): ?>
+							<div><?= $key ?></div>
+						<?php endif ?>
+					<?php endforeach ?>
+				</th>
+				<th><a href="/employee/update/<?= $employee->id ?>">Update</a></th>
+				<th><a href="/employee/delete/<?= $employee->id ?>">Delete</a></th>
+			</tr>
+		<?php endforeach ?>
+	</table>
+</body>
+</html>
