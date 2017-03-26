@@ -15,29 +15,29 @@
 	</div>
 	<a href="/employee/create">Create</a>
 	<table>
-		<th>
-			<td>ID</td>
-			<td>Name</td>
-			<td>Email</td>
-			<td>Access</td>
-			<td></td>
-			<td></td>
-		</th>
+		<tr>
+			<th>ID</th>
+			<th>Name</th>
+			<th>Email</th>
+			<th>Access</th>
+			<th></th>
+			<th></th>
+		</tr>
 
 		<?php foreach ($employees as $employee): ?>
 			<tr>
-				<th><?= $employee->id ?></th>
-				<th><?= $employee->name ?></th>
-				<th><?= $employee->email ?></th>
-				<th>
+				<td><?= $employee->id ?></td>
+				<td><?= $employee->name ?></td>
+				<td><?= $employee->email ?></td>
+				<td>
 					<?php foreach ($access as $key => $val): ?>
 						<?php if (($employee->access & $val) === $val): ?>
 							<div><?= $key ?></div>
 						<?php endif ?>
 					<?php endforeach ?>
-				</th>
-				<th><a href="/employee/update/<?= $employee->id ?>">Update</a></th>
-				<th><a href="/employee/delete/<?= $employee->id ?>">Delete</a></th>
+				</td>
+				<td><a href="/employee/update/<?= $employee->id ?>">Update</a></td>
+				<td><a href="/employee/delete/<?= $employee->id ?>">Delete</a></td>
 			</tr>
 		<?php endforeach ?>
 	</table>
