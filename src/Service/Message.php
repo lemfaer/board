@@ -31,7 +31,7 @@ class Message {
 	 * @return void
 	 */
 	public function text(string $text) : void {
-		$messages = $this->session["messages"];
+		$messages = $this->session["messages"] ?? [];
 		$messages[] = $text;
 		$this->session["messages"] = $messages;
 	}
@@ -41,7 +41,7 @@ class Message {
 	 * @return string|null
 	 */
 	public function pop() {
-		$messages = $this->session["messages"];
+		$messages = $this->session["messages"] ?? [];
 		$message = array_pop($messages);
 		$this->session["messages"] = $messages;
 		return $message;
