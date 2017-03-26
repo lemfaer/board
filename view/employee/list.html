@@ -13,8 +13,19 @@
 			</div>
 		<?php endwhile ?>
 	</div>
+
 	<a href="/employee/create">Create</a>
-	<table>
+
+	<table style="width: 100%">
+		<colgroup>
+			<col style="width: 5%" />
+			<col style="width: 30%" />
+			<col style="width: 30%" />
+			<col style="width: 20%" />
+			<col style="width: 7.5%" />
+			<col style="width: 7.5%" />
+		</colgroup>
+
 		<tr>
 			<th>ID</th>
 			<th>Name</th>
@@ -26,18 +37,18 @@
 
 		<?php foreach ($employees as $employee): ?>
 			<tr>
-				<td><?= $employee->id ?></td>
-				<td><?= $employee->name ?></td>
-				<td><?= $employee->email ?></td>
-				<td>
+				<td align="center"><?= $employee->id ?></td>
+				<td align="center"><?= $employee->name ?></td>
+				<td align="center"><?= $employee->email ?></td>
+				<td align="center">
 					<?php foreach ($access as $key => $val): ?>
 						<?php if (($employee->access & $val) === $val): ?>
 							<div><?= $key ?></div>
 						<?php endif ?>
 					<?php endforeach ?>
 				</td>
-				<td><a href="/employee/update/<?= $employee->id ?>">Update</a></td>
-				<td><a href="/employee/delete/<?= $employee->id ?>">Delete</a></td>
+				<td align="center"><a href="/employee/update/<?= $employee->id ?>">Update</a></td>
+				<td align="center"><a href="/employee/delete/<?= $employee->id ?>">Delete</a></td>
 			</tr>
 		<?php endforeach ?>
 	</table>
