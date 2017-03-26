@@ -9,10 +9,16 @@ use Board\Service\Container;
 class Test {
 
 	function test_message() {
+		if (session_status() === PHP_SESSION_DISABLED) {
+			session_start();
+		}
+
+		# clear
+		$_SESSION = [];
+
 		$cont = new Container();
 		$conf = $cont->get(Config::class);
 		$mess = $cont->get(Message::class);
-		session_unset();
 
 		$conf["messages"]["test1"] = "test2";
 		$mess("test1");
@@ -22,10 +28,16 @@ class Test {
 	}
 
 	function test_pop_all() {
+		if (session_status() === PHP_SESSION_DISABLED) {
+			session_start();
+		}
+
+		# clear
+		$_SESSION = [];
+
 		$cont = new Container();
 		$conf = $cont->get(Config::class);
 		$mess = $cont->get(Message::class);
-		session_unset();
 
 		$conf["messages"]["test1"] = "test11";
 		$conf["messages"]["test2"] = "test22";
@@ -46,9 +58,15 @@ class Test {
 	}
 
 	function test_flush() {
+		if (session_status() === PHP_SESSION_DISABLED) {
+			session_start();
+		}
+
+		# clear
+		$_SESSION = [];
+
 		$cont = new Container();
 		$mess = $cont->get(Message::class);
-		session_unset();
 
 		$mess->text("test");
 		$mess->text("test");
