@@ -43,6 +43,12 @@ foreach ($tests as $cls => $meths) {
 		call_user_func([ $obj, $meth ]);
 	}
 }
+
+if (session_status() === PHP_SESSION_NONE) {
+	session_start();
+}
+
+session_unset();
 ?>
 <!DOCTYPE html>
 <html lang="en">
