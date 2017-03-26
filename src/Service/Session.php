@@ -10,7 +10,7 @@ use IteratorAggregate;
 class Session implements IteratorAggregate, ArrayAccess, Countable {
 
 	public function __construct() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() == PHP_SESSION_NONE) {
 			session_start();
 		}
 	}

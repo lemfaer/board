@@ -11,12 +11,10 @@ use Board\Exception\AccessDenied;
 class Test {
 
 	function test_login() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$cont[Connection::class] = new MockC();
@@ -29,12 +27,10 @@ class Test {
 	}
 
 	function test_logout() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$cont[Connection::class] = new MockC();
@@ -48,7 +44,11 @@ class Test {
 	}
 
 	function test_logged() {
+		if (session_status() === PHP_SESSION_NONE) {
+			session_start();
+		}
 		session_unset();
+
 		$cont = new Container();
 		$cont[Connection::class] = new MockC();
 		$auth = $cont->get(Auth::class);
@@ -61,12 +61,10 @@ class Test {
 	}
 
 	function test_access() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$cont[Connection::class] = new MockC();

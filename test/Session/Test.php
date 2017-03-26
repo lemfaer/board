@@ -8,12 +8,10 @@ use Board\Service\Container;
 class Test {
 
 	function test_array_set() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$sess = $cont->get(Session::class);
@@ -25,12 +23,10 @@ class Test {
 	}
 
 	function test_array_set_key() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$sess = $cont->get(Session::class);
@@ -42,12 +38,10 @@ class Test {
 	}
 
 	function test_array_isset() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$sess = $cont->get(Session::class);
@@ -59,12 +53,10 @@ class Test {
 	}
 
 	function test_array_unset() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$sess = $cont->get(Session::class);
@@ -77,12 +69,10 @@ class Test {
 	}
 
 	function test_iterator() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$sess = $cont->get(Session::class);
@@ -97,12 +87,10 @@ class Test {
 	}
 
 	function test_count() {
-		if (session_status() === PHP_SESSION_DISABLED) {
+		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
-
-		# clear
-		$_SESSION = [];
+		session_unset();
 
 		$cont = new Container();
 		$sess = $cont->get(Session::class);
