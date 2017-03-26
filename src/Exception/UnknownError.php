@@ -7,8 +7,8 @@ use Exception;
 
 class UnknownError extends Exception {
 
-	public function __construct(string $message = "", Throwable $previous = null) {
-		parent::__construct($message, 500, $previous);
+	public function __construct(Throwable $previous = null) {
+		parent::__construct("", 500, $previous);
 	}
 
 }
