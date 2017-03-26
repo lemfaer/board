@@ -23,17 +23,17 @@ class Employee {
 
 	/**
 	 * Imports array values
-	 * @param array $employee
+	 * @param array $e employee
 	 * @return void
 	 */
-	public function from_array(array $employee) {
-		$this->id      = intval($employee["id"]);
-		$this->name    = strval($employee["name"]);
-		$this->email   = strval($employee["email"]);
-		$this->pass    = strval($employee["pass"]);
-		$this->access  = intval($employee["access"]);
-		$this->created = intval($employee["created"]);
-		$this->updated = intval($employee["updated"]);
+	public function from_array(array $e) {
+		$this->id      = isset($e["id"])      ? intval($e["id"])      : $this->id;
+		$this->name    = isset($e["name"])    ? strval($e["name"])    : $this->name;
+		$this->email   = isset($e["email"])   ? strval($e["email"])   : $this->email;
+		$this->pass    = isset($e["pass"])    ? strval($e["pass"])    : $this->pass;
+		$this->access  = isset($e["access"])  ? intval($e["access"])  : $this->access;
+		$this->created = isset($e["created"]) ? intval($e["created"]) : $this->created;
+		$this->updated = isset($e["updated"]) ? intval($e["updated"]) : $this->updated;
 	}
 
 	/**
