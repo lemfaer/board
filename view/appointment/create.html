@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Create Appointment</title>
+</head>
+<body>
+	<div class="messages">
+		<?php while ($message = $messages->pop()): ?>
+			<div class="message">
+				<span class="title">Message</span>
+				<div class="text"><?= $message ?></div>
+			</div>
+		<?php endwhile ?>
+	</div>
+	<form method="POST">
+		<div>
+			<div><label for="appointment-owner-id">Booked for:</label></div>
+			<select name="owner_id" id="appointment-owner-id" required>
+				<?php foreach ($owners as $owner): ?>
+					<option value="<?= $owner->id ?>"><?= $owner->name ?></option>
+				<?php endforeach ?>
+			</select>
+		</div>
+		<br>
+
+		<div>
+			<div><label for="appointment-day-start">I would like to book this meeting</label></div>
+			<input type="date" name="day_start" id="appointment-day-start" required>
+		</div>
+		<br>
+
+		<div>
+			<div><label>Specify what start and end time of the meeting (This will be what people see on the calendar.)</label></div>
+			<input type="time" name="time_start" id="appointment-time-start" required>
+			<input type="time" name="time_end" id="appointment-time-end" required>
+		</div>
+		<br>
+
+		<div>
+			<div><label for="appointment-description">Enter the specifics for the meeting. (This will be what people see when thay click on an event link.)</label></div>
+			<textarea name="description" id="appointment-description" cols="30" rows="10"></textarea>
+		</div>
+		<br>
+
+		<div>
+			<label>Is this going to be a recurring event?</label>
+
+			<div>
+				<input type="radio" name="recurrent" id="appointment-recurrent-no" value="no" checked>
+				<label for="appointment-recurrent-no">no</label>
+			</div>
+
+			<div>
+				<input type="radio" name="recurrent" id="appointment-recurrent-yes" value="yes">
+				<label for="appointment-recurrent-yes">yes</label>
+			</div>
+		</div>
+		<br>
+
+		<div>
+			<label>If it is recurring, specify interval of recurring</label>
+			<?php $first = true; ?>
+			<?php foreach ($intervals as $name => $void): ?>
+				<div>
+					<input type="radio" name="mode" id="appointment-mode-<?= $name ?>" value="<?= $name ?>" <?= $first ? "checked" : "" ?>>
+					<label for="appointment-mode-<?= $name ?>"><?= $name ?></label>
+				</div>
+				<?php $first = false; ?>
+			<?php endforeach ?>
+		</div>
+		<br>
+
+		<div>
+			<div><label for="appointment-day-end">If it is recurring, specify day to stop reccuring</label></div>
+			<input type="date" name="day_end" id="appointment-day-end">
+		</div>
+		<br>
+
+		<input type="submit">
+	</form>
+</body>
+</html>

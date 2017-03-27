@@ -25,6 +25,7 @@ return [
 
 	"routes" => [
 		[ "GET",  "~^testc$~", [ \Board\Controller\Test::class, "test" ] ],
+
 		[ "GET",  "~^employee$~", [ \Board\Controller\Employee::class, "list" ] ],
 		[ "GET",  "~^employee/create$~", [ \Board\Controller\Employee::class, "create" ] ],
 		[ "POST", "~^employee/create$~", [ \Board\Controller\Employee::class, "create_submit" ] ],
@@ -32,6 +33,9 @@ return [
 		[ "POST", "~^employee/update/([0-9]+)$~", [ \Board\Controller\Employee::class, "update_submit" ] ],
 		[ "GET",  "~^employee/delete/([0-9]+)$~", [ \Board\Controller\Employee::class, "delete" ] ],
 		[ "POST", "~^employee/delete/([0-9]+)$~", [ \Board\Controller\Employee::class, "delete_submit" ] ],
+
+		[ "GET",  "~^appointment/create$~", [ \Board\Controller\Appointment::class, "create" ] ],
+		[ "POST", "~^appointment/create$~", [ \Board\Controller\Appointment::class, "create_submit" ] ],
 	],
 
 	"access" => [
@@ -48,7 +52,11 @@ return [
 		"employee.pass" => "Password must contain 6-20 alphanumeric characters or symbols.",
 		"employee.created" => "Employee was successfully created",
 		"employee.updated" => "Employee was successfully updated",
-		"employee.deleted" => "Employee was successfully deleted"
+		"employee.deleted" => "Employee was successfully deleted",
+
+		"appointment.day" => "Day end must be greater than day start",
+		"appointment.time" => "Time end must be greater than time start",
+		"appointment.created" => "Appointment was successfully created"
 	],
 
 	"intervals" => [
