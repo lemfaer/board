@@ -28,7 +28,36 @@ class Employee extends Controller {
 			compact("access", "messages", "employee"));
 	}
 
-	/** /employee/create */
+	/** /employee/update/{id} */
+	public function update(int $id) {
+		$access = $this->conf["access"];
+		$messages = $this->message;
+		$employee = new Model($this->connection);
+
+		try {
+			$employee->load($id);
+		} catch (Throwable $e) {
+			throw new PageNotFound($e);
+		}
+
+		return ($this->view)("employee.form",
+			compact("access", "messages", "employee"));
+	}
+
+	/** /employee/delete/{id} */
+	public function delete(int $id) {
+		$employee = new Model($this->connection);
+
+		try {
+			$employee->load($id);
+		} catch (Throwable $e) {
+			throw new PageNotFound($e);
+		}
+
+		return ($this->view)("employee.delete", compact("employee"));
+	}
+
+		/** /employee/create */
 	public function create_submit() {
 		$employee = new Model($this->connection);
 
@@ -55,22 +84,6 @@ class Employee extends Controller {
 
 		($this->message)("employee.created");
 		return ($this->redirect)("employee");
-	}
-
-	/** /employee/update/{id} */
-	public function update(int $id) {
-		$access = $this->conf["access"];
-		$messages = $this->message;
-		$employee = new Model($this->connection);
-
-		try {
-			$employee->load($id);
-		} catch (Throwable $e) {
-			throw new PageNotFound($e);
-		}
-
-		return ($this->view)("employee.form",
-			compact("access", "messages", "employee"));
 	}
 
 	/** /employee/update/{id} */
@@ -106,19 +119,6 @@ class Employee extends Controller {
 
 		($this->message)("employee.updated");
 		return ($this->redirect)("employee");
-	}
-
-	/** /employee/delete/{id} */
-	public function delete(int $id) {
-		$employee = new Model($this->connection);
-
-		try {
-			$employee->load($id);
-		} catch (Throwable $e) {
-			throw new PageNotFound($e);
-		}
-
-		return ($this->view)("employee.delete", compact("employee"));
 	}
 
 	/** /employee/delete/{id} */
