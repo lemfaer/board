@@ -31,8 +31,8 @@ class Simple {
 	public function from_array(array $s) {
 		$this->id          = isset($s["id"])          ? intval($s["id"])          : $this->id;
 		$this->day         = isset($s["day"])         ? strval($s["day"])         : $this->day;
-		$this->created     = isset($e["created"])     ? intval($e["created"])     : $this->created;
-		$this->updated     = isset($e["updated"])     ? intval($e["updated"])     : $this->updated;
+		$this->created     = isset($s["created"])     ? intval($s["created"])     : $this->created;
+		$this->updated     = isset($s["updated"])     ? intval($s["updated"])     : $this->updated;
 		$this->owner_id    = isset($s["owner_id"])    ? strval($s["owner_id"])    : $this->owner_id;
 		$this->time_end    = isset($s["time_end"])    ? strval($s["time_end"])    : $this->time_end;
 		$this->time_start  = isset($s["time_start"])  ? strval($s["time_start"])  : $this->time_start;
