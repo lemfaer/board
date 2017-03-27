@@ -20,9 +20,10 @@ class Redirect {
 	 */
 	public function redirect(string $link) : void {
 		if (strpos($link, "http") === false) {
-			$domain = $conf["app"]["domain"];
-			$link = ltrim($link);
+			$domain = $this->conf["app"]["domain"];
 			$link = implode("/", [ $domain, $link ]);
+			$link = str_replace("//", "/", $link);
+			$link = "http://$link";
 		}
 
 		header("Location: $link");
