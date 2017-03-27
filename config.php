@@ -27,11 +27,11 @@ return [
 		[ "GET",  "~^testc$~", [ \Board\Controller\Test::class, "test" ] ],
 		[ "GET",  "~^employee$~", [ \Board\Controller\Employee::class, "list" ] ],
 		[ "GET",  "~^employee/create$~", [ \Board\Controller\Employee::class, "create" ] ],
-		[ "POST", "~^employee/create$~", [ \Board\Controller\Employee::class, "create" ] ],
+		[ "POST", "~^employee/create$~", [ \Board\Controller\Employee::class, "create_submit" ] ],
 		[ "GET",  "~^employee/update/([0-9]+)$~", [ \Board\Controller\Employee::class, "update" ] ],
-		[ "POST", "~^employee/update/([0-9]+)$~", [ \Board\Controller\Employee::class, "update" ] ],
+		[ "POST", "~^employee/update/([0-9]+)$~", [ \Board\Controller\Employee::class, "update_submit" ] ],
 		[ "GET",  "~^employee/delete/([0-9]+)$~", [ \Board\Controller\Employee::class, "delete" ] ],
-		[ "POST", "~^employee/delete/([0-9]+)$~", [ \Board\Controller\Employee::class, "delete" ] ],
+		[ "POST", "~^employee/delete/([0-9]+)$~", [ \Board\Controller\Employee::class, "delete_submit" ] ],
 	],
 
 	"access" => [
