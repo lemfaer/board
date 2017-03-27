@@ -42,4 +42,8 @@ class Controller {
 		$this->connection = $connection;
 	}
 
+	protected function validate_token() {
+		return true;
+	}
+
 }

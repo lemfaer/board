@@ -136,10 +136,6 @@ class Employee extends Controller {
 		return ($this->redirect)("employee");
 	}
 
-	protected function validate_token() {
-		return true;
-	}
-
 	protected function validate_email() {
 		$email = $this->request["email"];
 
