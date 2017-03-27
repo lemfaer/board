@@ -3,7 +3,6 @@
 namespace Board\Model\Appointment;
 
 use PDO;
-use DateTime;
 use Board\Service\Connection;
 
 class Simple {
@@ -70,35 +69,6 @@ class Simple {
 		$statm = $db->prepare($query);
 		$statm->setFetchMode(PDO::FETCH_ASSOC);
 		$statm->execute();
-		$res = $statm->fetchAll();
-
-		$simples = [];
-		foreach ($res as $arr) {
-			$simple = new Simple($db);
-			$simple->from_array($arr);
-			$simples[] = $simple;
-		}
-
-		return $simples;
-	}
-
-	/**
-	 * Loads all simple appointments by month
-	 * @param \Board\Service\Connection $db
-	 * @return array
-	 */
-	public static function by_month(Connection $db, string $month) : array {
-		$date = DateTime::createFromFormat("Y-m", $month);
-
-		$query = "SELECT *,
-			unix_timestamp(created) AS created,
-			unix_timestamp(updated) AS updated
-			FROM simple_appointment
-			WHERE year(day) = ? AND month(day) = ?";
-
-		$statm = $db->prepare($query);
-		$statm->setFetchMode(PDO::FETCH_ASSOC);
-		$statm->execute([ $date->format("Y"), $date->format("n") ]);
 		$res = $statm->fetchAll();
 
 		$simples = [];

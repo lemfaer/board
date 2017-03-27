@@ -24,6 +24,7 @@ return [
 	"pass" => "/^[\w~\!@#\$%\^&\*_\-\+\=`\|\(\)\{\}\[\]\:;\"'\<\>,\.\?]{6,20}$/",
 
 	"routes" => [
+		[ "GET",  "~^testc$~", [ \Board\Controller\Test::class, "test" ] ],
 		[ "GET",  "~^employee$~", [ \Board\Controller\Employee::class, "list" ] ],
 		[ "GET",  "~^employee/create$~", [ \Board\Controller\Employee::class, "create" ] ],
 		[ "POST", "~^employee/create$~", [ \Board\Controller\Employee::class, "create" ] ],
@@ -48,6 +49,12 @@ return [
 		"employee.created" => "Employee was successfully created",
 		"employee.updated" => "Employee was successfully updated",
 		"employee.deleted" => "Employee was successfully deleted"
+	],
+
+	"intervals" => [
+		"week" => new \DateInterval("P1W"),
+		"bi-week" => new \DateInterval("P2W"),
+		"month" => new \DateInterval("P1M")
 	]
 
 ];
