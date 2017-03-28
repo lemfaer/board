@@ -37,6 +37,14 @@ class Message {
 	}
 
 	/**
+	 * Message(s) exists
+	 * @return bool
+	 */
+	public function exists() {
+		return !empty($session["messages"]);
+	}
+
+	/**
 	 * Pop one message from storage
 	 * @return string|null
 	 */

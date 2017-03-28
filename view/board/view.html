@@ -9,6 +9,8 @@
 	$ym = $data["month"]["ym"];
 	$last = $data["month"]["last"];
 	$offset = $data["month"]["offset"];
+
+	$messages = $data["messages"];
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -119,6 +121,15 @@
 				Employee list
 			</button>
 		</div>
+
+		<?php if ($messages->exists()): ?>
+			<div class="messages">
+				<span class="title">Messages</span>
+				<?php while ($message = $messages->pop()): ?>
+						<p class="message"><?= $message ?></p>
+				<?php endwhile ?>
+			</div>
+		<?php endif ?>
 	</div>
 </body>
 </html>

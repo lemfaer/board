@@ -51,17 +51,17 @@ class Month {
 
 		foreach ($this->recurs as $recur) {
 			$start = DateTime::createFromFormat("Y-m-d", $recur->day_start);
-
-			$offset = $date->diff($start);
-			$start->add($offset);
-
-			// substract 1 day cause Y-m| sets day to 01.
-			// @see http://php.net/manual/datetime.createfromformat.php
-			$start->sub(new DateInterval("P1D"));
-
 			$interval = $this->conf["intervals"][$recur->mode];
+
 			while (true) {
-				$start->add($interval);
+				if ($start->format("Y-m") === $date->format("Y-m")) {
+					break;
+				}
+
+				$start->add(new DateInterval("P1W"));
+			}
+
+			while (true) {
 				$day = $start->format("Y-m-d");
 
 				if ($start->format("Y-m") !== $date->format("Y-m")) {
@@ -72,6 +72,7 @@ class Month {
 					continue;
 				}
 
+				$start->add($interval);
 				$month[$day]["recurrent"][] = $recur;
 			}
 		}

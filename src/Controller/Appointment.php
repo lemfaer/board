@@ -3,6 +3,7 @@
 namespace Board\Controller;
 
 use DateTime;
+use Board\Model\Room;
 use Board\Model\Employee;
 use Board\Model\Appointment\Simple;
 use Board\Model\Appointment\Recurrent;
@@ -11,11 +12,14 @@ class Appointment extends Controller {
 
 	/** /appointment/create */
 	public function create() {
+		$rooms = Room::all($this->connection);
 		$owners = Employee::all($this->connection);
+
 		$messages = $this->message;
 		$intervals = $this->conf["intervals"];
+
 		return ($this->view)("appointment.create",
-			compact("owners", "messages", "intervals"));
+			compact("rooms", "owners", "messages", "intervals"));
 	}
 
 	/** /appointment/create */

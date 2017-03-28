@@ -108,3 +108,25 @@ body, html {
 	margin: 0 2px 1em;
 	font-size: 1.1em;
 }
+
+.messages {
+	margin: 15px 0 0;
+	height: 60%;
+	display: flex;
+	overflow-y: auto;
+	flex-wrap: wrap;
+	justify-content: center;
+}
+
+.messages .title {
+	margin: 0 2px;
+	color: #555;
+	font-size: 1.1em;
+	text-transform: uppercase;
+}
+
+.message {
+	margin: 10px 5px;
+	white-space: normal;
+	word-wrap: break-word;
+}

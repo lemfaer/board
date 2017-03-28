@@ -25,6 +25,16 @@
 		<br>
 
 		<div>
+			<div><label for="appointment-room-id">Book room:</label></div>
+			<select name="room_id" id="appointment-room-id" required>
+				<?php foreach ($rooms as $room): ?>
+					<option value="<?= $room->id ?>"><?= $room->name ?></option>
+				<?php endforeach ?>
+			</select>
+		</div>
+		<br>
+
+		<div>
 			<div><label for="appointment-day-start">I would like to book this meeting</label></div>
 			<input type="date" name="day_start" id="appointment-day-start" required>
 		</div>

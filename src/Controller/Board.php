@@ -16,6 +16,7 @@ class Board extends Controller {
 		$data["week"] = $this->week();
 		$data["month"] = $this->month($ym);
 		$data["rooms"] = $this->rooms($room_id);
+		$data["messages"] = $this->message;
 		$data["appointment"] = $this->appointment(
 			$data["rooms"]["current"],
 			$data["month"]["ym"]
@@ -77,6 +78,7 @@ class Board extends Controller {
 		$appointment = new Month($this->conf, $this->connection);
 		$appointment->load($room, $ym);
 		$appointment = $appointment->prepare();
+		return $appointment;
 	}
 
 }
