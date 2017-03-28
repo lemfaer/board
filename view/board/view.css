@@ -2,6 +2,13 @@ body, html {
 	height: 100%;
 }
 
+.flc {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: nowrap;
+}
+
 .room-cal {
 	float: left;
 	width: 80%;
@@ -9,9 +16,6 @@ body, html {
 }
 
 .room-co {
-	display: flex;
-	align-items: center;
-	justify-content: center;
 	width: 100%;
 	height: 10%;
 }
@@ -74,7 +78,7 @@ body, html {
 	cursor: pointer;
 	padding: 3px;
 	text-align: center;
-	font-size: 1.2em;
+	font-size: 1.1em;
 }
 
 .tool-co {
@@ -85,26 +89,22 @@ body, html {
 
 .month-year {
 	height: 10%;
-	display: flex;
-	align-items: center;
-	justify-content: center;
-	flex-wrap: nowrap;
 }
 
 .month, .year {
 	margin: 0 2px;
 	color: #555;
-	font-size: 1.2em;
+	font-size: 1.1em;
 	text-transform: uppercase;
 }
 
-.month-nav {
-	display: flex;
-	align-items: center;
-	justify-content: center;
+.month-nav button {
+	margin: 0 2px 2em;
+	font-size: 1.2em;
 }
 
-.month-nav button {
-	margin: 0 2px;
-	font-size: 1.2em;
+.book button, .employee button {
+	width: 7em;
+	margin: 0 2px 1em;
+	font-size: 1.1em;
 }

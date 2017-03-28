@@ -19,7 +19,7 @@
 </head>
 <body>
 	<div class="room-cal">
-		<div class="room-co">
+		<div class="room-co flc">
 			<?php foreach ($rooms as $room): ?>
 					<?php if ($room === $current): ?>
 						<span class="current"><a><?= $room->name ?></a></span>
@@ -86,7 +86,7 @@
 		</div>
 	</div>
 	<div class="tool-co">
-		<div class="month-year">
+		<div class="month-year flc">
 			<span class="month">
 				<?= DateTime::createFromFormat("Y-m", $ym)->format("F") ?>
 			</span>
@@ -95,7 +95,7 @@
 			</span>
 		</div>
 
-		<div class="month-nav">
+		<div class="month-nav flc">
 			<?php $dif = new DateInterval("P1M") ?>
 
 			<?php $date = DateTime::createFromFormat("Y-m", $ym) ?>
@@ -106,6 +106,18 @@
 
 			<button class="lt" onclick="window.location='<?= $lt ?>'">&lt;</button>
 			<button class="gt" onclick="window.location='<?= $gt ?>'">&gt;</button>
+		</div>
+
+		<div class="book flc">
+			<button onclick="window.location='/appointment/create'">
+				Book It!
+			</button>
+		</div>
+
+		<div class="employee flc">
+			<button onclick="window.location='/employee'">
+				Employee list
+			</button>
 		</div>
 	</div>
 </body>
