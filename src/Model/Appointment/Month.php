@@ -87,7 +87,8 @@ class Month {
 			unix_timestamp(created) AS created,
 			unix_timestamp(updated) AS updated
 			FROM simple_appointment
-			WHERE extract(YEAR_MONTH FROM day) = ?";
+			WHERE extract(YEAR_MONTH FROM day) = ?
+			ORDER BY time_start";
 
 		$statm = $this->db->prepare($query);
 		$statm->setFetchMode(PDO::FETCH_ASSOC);
@@ -117,7 +118,8 @@ class Month {
 			unix_timestamp(updated) AS updated
 			FROM recurrent_appointment
 			WHERE extract(YEAR_MONTH FROM day_start) <= :ym
-				AND extract(YEAR_MONTH FROM day_end) >= :ym";
+				AND extract(YEAR_MONTH FROM day_end) >= :ym
+			ORDER BY time_start";
 
 		$statm = $this->db->prepare($query);
 		$statm->setFetchMode(PDO::FETCH_ASSOC);
