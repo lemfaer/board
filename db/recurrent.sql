@@ -1,6 +1,7 @@
 CREATE TABLE recurrent_appointment (
 	id          INTEGER      NOT NULL AUTO_INCREMENT PRIMARY KEY,
 	owner_id    INTEGER      NOT NULL,
+	room_id     INTEGER      NOT NULL,
 	mode        VARCHAR(255) NOT NULL,
 	time_start  TIME         NOT NULL,
 	time_end    TIME         NOT NULL,
@@ -9,7 +10,8 @@ CREATE TABLE recurrent_appointment (
 	description TEXT         NOT NULL,
 	created     TIMESTAMP    NOT NULL DEFAULT now(),
 	updated     TIMESTAMP    NOT NULL DEFAULT now() ON UPDATE now(),
-	FOREIGN KEY (owner_id) REFERENCES employee(id)
+	FOREIGN KEY (owner_id) REFERENCES employee(id),
+	FOREIGN KEY (room_id) REFERENCES boardroom(id)
 )
 
 ENGINE = InnoDB;

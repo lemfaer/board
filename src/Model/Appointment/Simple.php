@@ -13,6 +13,7 @@ class Simple {
 	public $day;
 	public $created;
 	public $updated;
+	public $room_id;
 	public $owner_id;
 	public $time_end;
 	public $time_start;
@@ -32,7 +33,8 @@ class Simple {
 		$this->day         = isset($s["day"])         ? strval($s["day"])         : $this->day;
 		$this->created     = isset($s["created"])     ? intval($s["created"])     : $this->created;
 		$this->updated     = isset($s["updated"])     ? intval($s["updated"])     : $this->updated;
-		$this->owner_id    = isset($s["owner_id"])    ? strval($s["owner_id"])    : $this->owner_id;
+		$this->room_id     = isset($s["room_id"])     ? intval($s["room_id"])     : $this->room_id;
+		$this->owner_id    = isset($s["owner_id"])    ? intval($s["owner_id"])    : $this->owner_id;
 		$this->time_end    = isset($s["time_end"])    ? strval($s["time_end"])    : $this->time_end;
 		$this->time_start  = isset($s["time_start"])  ? strval($s["time_start"])  : $this->time_start;
 		$this->description = isset($s["description"]) ? strval($s["description"]) : $this->description;
@@ -48,7 +50,8 @@ class Simple {
 			"day"         => strval($this->day),
 			"created"     => intval($this->created),
 			"updated"     => intval($this->updated),
-			"owner_id"    => strval($this->owner_id),
+			"room_id"     => intval($this->room_id),
+			"owner_id"    => intval($this->owner_id),
 			"time_end"    => strval($this->time_end),
 			"time_start"  => strval($this->time_start),
 			"description" => strval($this->description)
@@ -106,8 +109,8 @@ class Simple {
 	public function save() : void {
 		$insert = "INSERT INTO simple_appointment SET %s";
 		$update = "UPDATE simple_appointment SET %s WHERE id = :id";
-		$values = "id=:id,day=:day,owner_id=:owner_id,time_end=:time_end,
-			time_start=:time_start,description=:description";
+		$values = "id=:id,day=:day,owner_id=:owner_id,room_id=:room_id,
+			time_end=:time_end,time_start=:time_start,description=:description";
 
 		$mode = empty($this->id) ? $insert : $update;
 		$query = sprintf($mode, $values);

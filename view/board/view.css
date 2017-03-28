@@ -2,14 +2,41 @@ body, html {
 	height: 100%;
 }
 
+.room-cal {
+	float: left;
+	width: 80%;
+	height: 90%;
+}
+
 .room-co {
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	width: 100%;
 	height: 10%;
 }
 
+.room-co span {
+	margin: 0 5px;
+}
+
+.room-co span a {
+	cursor: pointer;
+	color: #dd4b39;
+	font-size: 1.2em;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: normal;
+}
+
+.room-co span.current a {
+	cursor: default;
+	color: #4285f4;
+}
+
 .cal-co {
-	width: 80%;
-	height: 80%;
+	width: 100%;
+	height: 90%;
 }
 
 .cal {
@@ -47,5 +74,37 @@ body, html {
 	cursor: pointer;
 	padding: 3px;
 	text-align: center;
+	font-size: 1.2em;
+}
+
+.tool-co {
+	float: right;
+	width: 20%;
+	height: 90%;
+}
+
+.month-year {
+	height: 10%;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-wrap: nowrap;
+}
+
+.month, .year {
+	margin: 0 2px;
+	color: #555;
+	font-size: 1.2em;
+	text-transform: uppercase;
+}
+
+.month-nav {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+.month-nav button {
+	margin: 0 2px;
 	font-size: 1.2em;
 }

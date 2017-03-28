@@ -3,21 +3,29 @@
 namespace Board\Controller;
 
 use DateTime;
+use Throwable;
+use Board\Model\Room;
 use Board\Model\Appointment\Month;
+use Board\Exception\PageNotFound;
 
 class Board extends Controller {
 
 	/** /{Y-m} */
-	public function main(string $ym = null) {
-		if ($ym === null) {
-			$ym = date("Y-m");
-		}
+	public function main(int $room_id = null, string $ym = null) {
+		$data = [];
+		$data["week"] = $this->week();
+		$data["month"] = $this->month($ym);
+		$data["rooms"] = $this->rooms($room_id);
+		$data["appointment"] = $this->appointment(
+			$data["rooms"]["current"],
+			$data["month"]["ym"]
+		);
 
-		$appointment = new Month($this->conf, $this->connection);
-		$appointment->load($ym);
-		$appointment = $appointment->prepare();
+		return ($this->view)("board.view", compact("data"));
+	}
 
-		$header = [];
+	protected function week() {
+		$week = [];
 
 		for ($i = 0; $i < 7; $i++) {
 			$day = $day ?? new DateTime();
@@ -26,18 +34,49 @@ class Board extends Controller {
 			$key = intval($day->format($this->conf["week"]["num"]));
 			$val = strval($day->format($this->conf["week"]["text"]));
 
-			$header[$key] = $val;
+			$week[$key] = $val;
 		}
 
-		ksort($header);
+		ksort($week);
+		return $week;
+	}
+
+	protected function month(string $ym = null) {
+		if ($ym === null) {
+			$ym = date("Y-m");
+		}
 
 		$dt = DateTime::createFromFormat("Y-m|", $ym);
 		$last = intval($dt->format("t"));
 		$offset = intval($dt->format($this->conf["week"]["num"]));
 		$offset = isset($header[0]) ? $offset : $offset - 1;
 
-		return ($this->view)("board.view",
-			compact("appointment", "header", "offset", "last", "ym"));
+		return compact("ym", "offset", "last");
+	}
+
+	protected function rooms(int $room_id = null) {
+		$all_rooms = Room::all($this->connection);
+		$currents = $all_rooms;
+
+		if ($room_id) {
+			$currents = array_filter($currents, function ($room) use ($room_id) {
+				return $room->id === $room_id;
+			});
+		}
+
+		if (empty($currents)) {
+			throw new PageNotFound();
+		}
+
+		$current = array_values($currents)[0];
+
+		return [ "all" => $all_rooms, "current" => $current ];
+	}
+
+	protected function appointment(Room $room, string $ym = null) {
+		$appointment = new Month($this->conf, $this->connection);
+		$appointment->load($room, $ym);
+		$appointment = $appointment->prepare();
 	}
 
 }

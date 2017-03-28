@@ -13,6 +13,7 @@ class Recurrent {
 	public $mode;
 	public $created;
 	public $updated;
+	public $room_id;
 	public $day_end;
 	public $time_end;
 	public $owner_id;
@@ -36,9 +37,10 @@ class Recurrent {
 		$this->mode        = isset($r["mode"])        ? strval($r["mode"])        : $this->mode;
 		$this->created     = isset($r["created"])     ? intval($r["created"])     : $this->created;
 		$this->updated     = isset($r["updated"])     ? intval($r["updated"])     : $this->updated;
+		$this->room_id     = isset($r["room_id"])     ? intval($r["room_id"])     : $this->room_id;
 		$this->day_end     = isset($r["day_end"])     ? strval($r["day_end"])     : $this->day_end;
 		$this->time_end    = isset($r["time_end"])    ? strval($r["time_end"])    : $this->time_end;
-		$this->owner_id    = isset($r["owner_id"])    ? strval($r["owner_id"])    : $this->owner_id;
+		$this->owner_id    = isset($r["owner_id"])    ? intval($r["owner_id"])    : $this->owner_id;
 		$this->day_start   = isset($r["day_start"])   ? strval($r["day_start"])   : $this->day_start;
 		$this->time_start  = isset($r["time_start"])  ? strval($r["time_start"])  : $this->time_start;
 		$this->description = isset($r["description"]) ? strval($r["description"]) : $this->description;
@@ -54,9 +56,10 @@ class Recurrent {
 			"mode"        => strval($this->mode),
 			"created"     => intval($this->created),
 			"updated"     => intval($this->updated),
+			"room_id"     => intval($this->room_id),
 			"day_end"     => strval($this->day_end),
 			"time_end"    => strval($this->time_end),
-			"owner_id"    => strval($this->owner_id),
+			"owner_id"    => intval($this->owner_id),
 			"day_start"   => strval($this->day_start),
 			"time_start"  => strval($this->time_start),
 			"description" => strval($this->description)
@@ -115,7 +118,7 @@ class Recurrent {
 		$insert = "INSERT INTO recurrent_appointment SET %s";
 		$update = "UPDATE recurrent_appointment SET %s WHERE id = :id";
 		$values = "id=:id,mode=:mode,day_end=:day_end,time_end=:time_end,owner_id=:owner_id,
-			day_start=:day_start,time_start=:time_start,description=:description";
+			room_id=:room_id,day_start=:day_start,time_start=:time_start,description=:description";
 
 		$mode = empty($this->id) ? $insert : $update;
 		$query = sprintf($mode, $values);

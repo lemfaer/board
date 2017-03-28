@@ -5,6 +5,7 @@ namespace Board\Model\Appointment;
 use PDO;
 use DateTime;
 use DateInterval;
+use Board\Model\Room;
 use Board\Service\Config;
 use Board\Service\Connection;
 
@@ -12,6 +13,7 @@ class Month {
 
 	protected $db;
 	protected $conf;
+	protected $room;
 	protected $month;
 	protected $recurs;
 	protected $excepts;
@@ -24,12 +26,14 @@ class Month {
 
 	/**
 	 * Loads all simple appointments by month
+	 * @param \Board\Model\Room $room boardroom
 	 * @param string $month Y-m month format
 	 */
-	public function load(string $month) : void {
+	public function load(Room $room, string $month) : void {
+		$this->room = $room;
 		$this->month = $month;
-		$this->simples = $this->load_simples($month);
-		$this->recurs  = $this->load_recurs($month);
+		$this->simples = $this->load_simples($room, $month);
+		$this->recurs  = $this->load_recurs($room, $month);
 		$this->excepts = $this->load_excepts($month, $this->recurs);
 	}
 
@@ -77,22 +81,24 @@ class Month {
 
 	/**
 	 * Loads all simple appointments by month
+	 * @param \Board\Model\Room $room boardroom
 	 * @param string $month Y-m month format
 	 * @return array
 	 */
-	protected function load_simples(string $month) : array {
+	protected function load_simples(Room $room, string $month) : array {
 		$date = DateTime::createFromFormat("Y-m|", $month);
 
 		$query = "SELECT *,
 			unix_timestamp(created) AS created,
 			unix_timestamp(updated) AS updated
 			FROM simple_appointment
-			WHERE extract(YEAR_MONTH FROM day) = ?
+			WHERE room_id = ?
+				AND extract(YEAR_MONTH FROM day) = ?
 			ORDER BY time_start";
 
 		$statm = $this->db->prepare($query);
 		$statm->setFetchMode(PDO::FETCH_ASSOC);
-		$statm->execute([ $date->format("Ym") ]);
+		$statm->execute([ $room->id, $date->format("Ym") ]);
 		$res = $statm->fetchAll();
 
 		$simples = [];
@@ -107,23 +113,25 @@ class Month {
 
 	/**
 	 * Loads all recurrent appointments by month
+	 * @param \Board\Model\Room $room boardroom
 	 * @param string $month Y-m month format
 	 * @return array
 	 */
-	protected function load_recurs(string $month) : array {
+	protected function load_recurs(Room $room, string $month) : array {
 		$date = DateTime::createFromFormat("Y-m|", $month);
 
 		$query = "SELECT *,
 			unix_timestamp(created) AS created,
 			unix_timestamp(updated) AS updated
 			FROM recurrent_appointment
-			WHERE extract(YEAR_MONTH FROM day_start) <= :ym
+			WHERE room_id = :room
+				AND extract(YEAR_MONTH FROM day_start) <= :ym
 				AND extract(YEAR_MONTH FROM day_end) >= :ym
 			ORDER BY time_start";
 
 		$statm = $this->db->prepare($query);
 		$statm->setFetchMode(PDO::FETCH_ASSOC);
-		$statm->execute([ "ym" => $date->format("Ym") ]);
+		$statm->execute([ "room" => $room->id, "ym" => $date->format("Ym") ]);
 		$res = $statm->fetchAll();
 
 		$recurs = [];
