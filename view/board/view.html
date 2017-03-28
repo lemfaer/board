@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Board</title>
+	<link rel="stylesheet" href="view/board/view.css">
+</head>
+<body>
+	<div class="room-co">
+		
+	</div>
+	<div class="cal-co">
+		<table class="cal">
+			<tr>
+				<?php foreach ($header as $day_name): ?>
+					<th><?= $day_name ?></th>
+				<?php endforeach ?>
+			</tr>
+
+			<?php for ($i = 0; $i < ceil(($offset + $last) / 7) * 7; $i++): ?>
+				<?php if ($i % 7 === 0): ?>
+					<tr>
+				<?php endif ?>
+
+				<td>
+					<?php if ($offset <= $i && $i < $last + $offset): ?>
+						<?php $num = $i - $offset + 1 ?>
+						<?php $key = DateTime::createFromFormat("Y-m-j", "$ym-$num")->format("Y-m-d"); ?>
+
+						<div>
+							<span class="num"><?= $num ?></span>
+
+							<?php if (isset($appointment[$key]["simple"])): ?>
+								<?php foreach ($appointment[$key]["simple"] as $simple): ?>
+									<?php $time_start = DateTime::createFromFormat("H:i:s", $simple->time_start)->format("H:i"); ?>
+									<?php $time_end   = DateTime::createFromFormat("H:i:s", $simple->time_end)->format("H:i"); ?>
+
+									<div class="appt simple" data-id="<?= $simple->id ?>">
+										<?= "$time_start - $time_end" ?>
+									</div>
+								<?php endforeach ?>
+							<?php endif ?>
+
+							<?php if (isset($appointment[$key]["recurrent"])): ?>
+								<?php foreach ($appointment[$key]["recurrent"] as $recur): ?>
+									<?php $time_start = DateTime::createFromFormat("H:i:s", $recur->time_start)->format("H:i"); ?>
+									<?php $time_end   = DateTime::createFromFormat("H:i:s", $recur->time_end)->format("H:i"); ?>
+
+									<div class="appt recur" data-id="<?= $recur->id ?>">
+										<?= "$time_start - $time_end" ?>
+									</div>
+								<?php endforeach ?>
+							<?php endif ?>
+						</div>
+					<?php endif ?>
+				</td>
+
+				<?php if ($i % 7 === 6): ?>
+					</tr>
+				<?php endif ?>
+			<?php endfor ?>
+		</table>
+	</div>
+</body>
+</html>

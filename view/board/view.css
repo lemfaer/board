@@ -1,0 +1,51 @@
+body, html {
+	height: 100%;
+}
+
+.room-co {
+	width: 100%;
+	height: 10%;
+}
+
+.cal-co {
+	width: 80%;
+	height: 80%;
+}
+
+.cal {
+	width: 100%;
+	height: 100%;
+	border-collapse: collapse;
+}
+
+.cal th {
+	height: 5%;
+	text-align: center;
+	text-decoration: none;
+	text-transform: uppercase;
+	font-weight: normal;
+	color: #555;
+}
+
+.cal td {
+	width: 14.28%;
+	height: 19%;
+	border: 1px solid #ddd;
+}
+
+.cal td > div {
+	height: 100%;
+	overflow-y: auto;
+}
+
+.cal .num {
+	padding: 3px;
+}
+
+.cal .appt {
+	color: #777777;
+	cursor: pointer;
+	padding: 3px;
+	text-align: center;
+	font-size: 1.2em;
+}

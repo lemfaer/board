@@ -21,10 +21,18 @@ return [
 		]
 	],
 
+	"week" => [
+		"num" => "N",
+		"text" => "l"
+	],
+
 	"pass" => "/^[\w~\!@#\$%\^&\*_\-\+\=`\|\(\)\{\}\[\]\:;\"'\<\>,\.\?]{6,20}$/",
 
 	"routes" => [
 		[ "GET",  "~^testc$~", [ \Board\Controller\Test::class, "test" ] ],
+
+		[ "GET", "~^$~", [ \Board\Controller\Board::class, "main" ] ],
+		[ "GET", "~^([0-9]{4}\-[0-9]{2})$~", [ \Board\Controller\Board::class, "main" ] ],
 
 		[ "GET",  "~^employee$~", [ \Board\Controller\Employee::class, "list" ] ],
 		[ "GET",  "~^employee/create$~", [ \Board\Controller\Employee::class, "create" ] ],
