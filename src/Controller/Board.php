@@ -13,6 +13,7 @@ class Board extends Controller {
 	/** /{Y-m} */
 	public function main(int $room_id = null, string $ym = null) {
 		$data = [];
+		$data["time"] = $this->conf["time"];
 		$data["week"] = $this->week();
 		$data["month"] = $this->month($ym);
 		$data["rooms"] = $this->rooms($room_id);

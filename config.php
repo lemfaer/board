@@ -21,6 +21,8 @@ return [
 		]
 	],
 
+	"time" => "H:i",
+
 	"week" => [
 		"num" => "N",
 		"text" => "l"
