@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Login</title>
+</head>
+<body>
+	<div class="messages">
+		<?php while ($message = $messages->pop()): ?>
+			<div class="message">
+				<span class="title">Message</span>
+				<div class="text"><?= $message ?></div>
+			</div>
+		<?php endwhile ?>
+	</div>
+	<form method="POST">
+		<div class="email">
+			<label for="email">Email</label>
+			<input type="email" name="email" id="email" required>
+		</div>
+
+		<div class="pass">
+			<label for="pass">Pass </label>
+			<input type="password" name="pass" id="pass" required>
+		</div>
+
+		<input type="submit" value="Login">
+	</form>
+</body>
+</html>

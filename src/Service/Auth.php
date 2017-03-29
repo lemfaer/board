@@ -54,15 +54,19 @@ class Auth {
 	 * @throws \Board\Exception\AccessDenied
 	 * @return void
 	 */
-	public function access(string ...$names) {
-		if (!empty($this->session["auth"]) && !empty($this->employee)) {
-			$access = array_reduce($names, function ($carry, $item) {
-				return $carry | $this->conf["access"][$item];
-			}, 0);
+	public function require(string ...$names) {
+		if (empty($this->session["auth"]) || empty($this->employee)) {
+			$access = $this->conf["anonym"];
+		} else {
+			$access = $this->employee->access;
+		}
 
-			if (($this->employee->access & $access) === $access) {
-				return;
-			}
+		$require = array_reduce($names, function ($carry, $item) {
+			return $carry | $this->conf["access"][$item];
+		}, 0);
+
+		if (($access & $require) === $require) {
+			return;
 		}
 
 		throw new AccessDenied(implode(", ", $names));

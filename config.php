@@ -37,6 +37,11 @@ return [
 		[ "GET", "~^$~", [ \Board\Controller\Board::class, "main" ] ],
 		[ "GET", "~^room\-([0-9]+)/([0-9]{4}\-[0-9]{2})$~", [ \Board\Controller\Board::class, "main" ] ],
 
+		[ "GET",  "~^login$~", [ \Board\Controller\Auth::class, "login" ] ],
+		[ "POST", "~^login$~", [ \Board\Controller\Auth::class, "login_submit" ] ],
+		[ "GET",  "~^logout$~", [ \Board\Controller\Auth::class, "logout" ] ],
+		[ "POST", "~^logout$~", [ \Board\Controller\Auth::class, "logout" ] ],
+
 		[ "GET",  "~^employee$~", [ \Board\Controller\Employee::class, "list" ] ],
 		[ "GET",  "~^employee/create$~", [ \Board\Controller\Employee::class, "create" ] ],
 		[ "POST", "~^employee/create$~", [ \Board\Controller\Employee::class, "create_submit" ] ],
@@ -51,6 +56,8 @@ return [
 		[ "POST", "~^appointment/popup/day\-([0-9]{4}\-[0-9]{2}\-[0-9]{2})/type\-([a-z]+)/([0-9]+)$~", [ \Board\Controller\Appointment::class, "popup_submit" ] ],
 	],
 
+	"anonym" => -1,
+
 	"access" => [
 		"all" => -1,
 
@@ -58,9 +65,16 @@ return [
 		"employee.create" => 1 << 1,
 		"employee.update" => 1 << 2,
 		"employee.delete" => 1 << 3,
+
+		"appointment.view" => 1 << 4,
+		"appointment.create" => 1 << 5,
+		"appointment.update" => 1 << 6,
+		"appointment.delete" => 1 << 7
 	],
 
 	"messages" => [
+		"auth.fail" => "Invalid email or password",
+
 		"employee.email" => "Email is invalid",
 		"employee.pass" => "Password must contain 6-20 alphanumeric characters or symbols.",
 		"employee.created" => "Employee was successfully created",

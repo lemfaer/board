@@ -60,7 +60,7 @@ class Test {
 		assert($res === true);
 	}
 
-	function test_access() {
+	function test_require() {
 		if (session_status() === PHP_SESSION_NONE) {
 			session_start();
 		}
@@ -71,12 +71,13 @@ class Test {
 		$auth = $cont->get(Auth::class);
 		$conf = $cont->get(Config::class);
 
+		$conf["anonym"] = 0;
 		$conf["access"]["test"] = (1 << 1) | (1 << 2);
 
 		try {
 			$emp1 = new MockA();
 			$auth->login($emp1);
-			$auth->access("test");
+			$auth->require("test");
 			$res1 = true;
 		} catch (AccessDenied $e) {
 			$res1 = false;
@@ -85,7 +86,7 @@ class Test {
 		try {
 			$emp2 = new MockB();
 			$auth->login($emp2);
-			$auth->access("test");
+			$auth->require("test");
 			$res2 = true;
 		} catch (AccessDenied $e) {
 			$res2 = false;

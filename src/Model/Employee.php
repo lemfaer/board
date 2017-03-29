@@ -79,6 +79,32 @@ class Employee {
 	}
 
 	/**
+	 * Loads all employees by field
+	 * @param \Board\Service\Connection $db
+	 * @return array
+	 */
+	public static function by_field(Connection $db, string $key, string $val) : array {
+		$query = "SELECT *,
+			unix_timestamp(created) AS created,
+			unix_timestamp(updated) AS updated
+			FROM employee WHERE $key = ?";
+
+		$statm = $db->prepare($query);
+		$statm->setFetchMode(PDO::FETCH_ASSOC);
+		$statm->execute([ $val ]);
+		$res = $statm->fetchAll();
+
+		$employees = [];
+		foreach ($res as $arr) {
+			$employee = new Employee($db);
+			$employee->from_array($arr);
+			$employees[] = $employee;
+		}
+
+		return $employees;
+	}
+
+	/**
 	 * Loads data of employee from database
 	 * @param int $id employee identificator
 	 * @return void

@@ -33,7 +33,7 @@ $tests = [
 		"test_message", "test_pop_all", "test_flush"
 	],
 	\Board\Test\Auth\Test::class => [
-		"test_login", "test_logout", "test_logged", "test_access"
+		"test_login", "test_logout", "test_logged", "test_require"
 	]
 ];
 

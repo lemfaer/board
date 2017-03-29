@@ -12,6 +12,8 @@ class Board extends Controller {
 
 	/** /room-{room}/{Y-m} */
 	public function main(int $room_id = null, string $ym = null) {
+		$this->auth->require("appointment.view");
+
 		$data = [];
 		$data["time"] = $this->conf["time"];
 		$data["week"] = $this->week();

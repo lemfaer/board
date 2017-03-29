@@ -10,6 +10,8 @@ class Employee extends Controller {
 
 	/** /employee */
 	public function list() {
+		$this->auth->require("employee.view");
+
 		$access = $this->conf["access"];
 		$messages = $this->message;
 		$employees = Model::all($this->connection);
@@ -20,6 +22,8 @@ class Employee extends Controller {
 
 	/** /employee/create */
 	public function create() {
+		$this->auth->require("employee.create");
+
 		$access = $this->conf["access"];
 		$messages = $this->message;
 		$employee = new Model($this->connection);
@@ -30,6 +34,8 @@ class Employee extends Controller {
 
 	/** /employee/update/{id} */
 	public function update(int $id) {
+		$this->auth->require("employee.update");
+
 		$access = $this->conf["access"];
 		$messages = $this->message;
 		$employee = new Model($this->connection);
@@ -46,6 +52,7 @@ class Employee extends Controller {
 
 	/** /employee/delete/{id} */
 	public function delete(int $id) {
+		$this->auth->require("employee.delete");
 		$employee = new Model($this->connection);
 
 		try {
@@ -59,6 +66,7 @@ class Employee extends Controller {
 
 		/** /employee/create */
 	public function create_submit() {
+		$this->auth->require("employee.create");
 		$employee = new Model($this->connection);
 
 		$pass = $this->validate_pass();
@@ -71,7 +79,8 @@ class Employee extends Controller {
 		}
 
 		$data = iterator_to_array($this->request);
-		$data["access"] = $access = array_reduce(
+		$data["pass"] = password_hash($data["pass"], PASSWORD_DEFAULT);
+		$data["access"] = array_reduce(
 			array_keys($data["access"]),
 			function ($carry, $item) {
 				return $carry | $this->conf["access"][$item];
@@ -88,6 +97,7 @@ class Employee extends Controller {
 
 	/** /employee/update/{id} */
 	public function update_submit(int $id) {
+		$this->auth->require("employee.update");
 		$employee = new Model($this->connection);
 		$employee->load($id);
 
@@ -101,7 +111,8 @@ class Employee extends Controller {
 		}
 
 		$data = iterator_to_array($this->request);
-		$data["access"] = $access = array_reduce(
+		$data["pass"] = password_hash($data["pass"], PASSWORD_DEFAULT);
+		$data["access"] = array_reduce(
 			array_keys($data["access"]),
 			function ($carry, $item) {
 				return $carry | $this->conf["access"][$item];
@@ -118,6 +129,7 @@ class Employee extends Controller {
 
 	/** /employee/delete/{id} */
 	public function delete_submit(int $id) {
+		$this->auth->require("employee.delete");
 		$employee = new Model($this->connection);
 		$employee->load($id);
 		$employee->del();

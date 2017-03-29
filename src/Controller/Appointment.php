@@ -13,6 +13,8 @@ class Appointment extends Controller {
 
 	/** /appointment/create */
 	public function create() {
+		$this->auth->require("appointment.create");
+
 		$rooms = Room::all($this->connection);
 		$owners = Employee::all($this->connection);
 
@@ -25,6 +27,7 @@ class Appointment extends Controller {
 
 	/** /appointment/create */
 	public function create_submit() {
+		$this->auth->require("appointment.create");
 		$this->request["day"] = $this->request["day_start"];
 
 		if (!$this->validate_token() || !$this->validate_day()
@@ -87,6 +90,8 @@ class Appointment extends Controller {
 	}
 
 	public function update_submit(string $day, string $cls, int $id) {
+		$this->auth->require("appointment.update");
+
 		if (!$this->validate_token() || !$this->validate_time()) {
 			return ($this->redirect)("/");
 		}
@@ -117,6 +122,8 @@ class Appointment extends Controller {
 	}
 
 	public function delete_submit(string $day, string $cls, int $id) {
+		$this->auth->require("appointment.delete");
+
 		$appointment = new $cls($this->connection);
 		$appointment->load($id);
 		$data = iterator_to_array($this->request);
