@@ -3,6 +3,7 @@
 namespace Board\Controller;
 
 use DateTime;
+use Throwable;
 use Board\Model\Room;
 use Board\Model\Employee;
 use Board\Model\Appointment\Simple;

@@ -89,12 +89,7 @@ class Employee extends Controller {
 	/** /employee/update/{id} */
 	public function update_submit(int $id) {
 		$employee = new Model($this->connection);
-
-		try {
-			$employee->load($id);
-		} catch (Throwable $e) {
-			throw new PageNotFound($e);
-		}
+		$employee->load($id);
 
 		$pass = $this->validate_pass();
 		$token = $this->validate_token();
@@ -124,14 +119,9 @@ class Employee extends Controller {
 	/** /employee/delete/{id} */
 	public function delete_submit(int $id) {
 		$employee = new Model($this->connection);
-
-		try {
-			$employee->load($id);
-		} catch (Throwable $e) {
-			throw new PageNotFound($e);
-		}
-
+		$employee->load($id);
 		$employee->del();
+
 		($this->message)("employee.deleted");
 		return ($this->redirect)("employee");
 	}
