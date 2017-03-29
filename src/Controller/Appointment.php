@@ -43,6 +43,24 @@ class Appointment extends Controller {
 		return ($this->redirect)("/");
 	}
 
+	/** /appointment/popup/{type}-{id} */
+	public function popup(string $type, int $id) {
+		if ($type === "simple") {
+			$cls = Simple::class;
+		}
+
+		if ($type === "recurrent") {
+			$cls = Recurrent::class;
+		}
+
+		$appointment = new $cls($this->connection);
+		$appointment->load($id);
+
+		$owners = Employee::all($this->connection);
+
+		return ($this->view)("appointment.popup", compact("type", "appointment", "owners"));
+	}
+
 	protected function validate_day() {
 		if (!filter_var($this->request["recurrent"], FILTER_VALIDATE_BOOLEAN)) {
 			return true;

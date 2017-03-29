@@ -46,6 +46,7 @@ return [
 
 		[ "GET",  "~^appointment/create$~", [ \Board\Controller\Appointment::class, "create" ] ],
 		[ "POST", "~^appointment/create$~", [ \Board\Controller\Appointment::class, "create_submit" ] ],
+		[ "GET", "~^appointment/popup/([a-z]+)\-([0-9]+)$~", [ \Board\Controller\Appointment::class, "popup" ] ],
 	],
 
 	"access" => [

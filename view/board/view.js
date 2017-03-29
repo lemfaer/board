@@ -23,7 +23,7 @@ for (var i = 0; i < appts.length; i++) {
 		}
 
 		var id = this.getAttribute("data-id");
-		var url = "/appointment/update/" + type + "-" + id;
+		var url = "/appointment/popup/" + type + "-" + id;
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", url, false);

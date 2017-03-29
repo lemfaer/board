@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>
+		<?= ucfirst($type) ?>
+		appointment
+		<?= $appointment->id ?>
+	</title>
+</head>
+<body>
+	<form action="<?= "/appointment/popup/$type-{$appointment->id}" ?>" method="POST">
+		<div class="owner field line">
+			<label for="appointment-owner-id">Who</label>
+			<select name="owner_id" id="appointment-owner-id" required>
+				<?php foreach ($owners as $owner): ?>
+					<option value="<?= $owner->id ?>"
+							<?= $owner->id === $appointment->owner_id ? "selected" : "" ?>>
+						<?= $owner->name ?>
+					</option>
+				<?php endforeach ?>
+			</select>
+		</div>
+
+		<div class="time field line">
+			<label>When</label>
+			<input type="time" name="time_start" id="appointment-time-start" value="<?= $appointment->time_start ?>" required>
+			<input type="time" name="time_end" id="appointment-time-end" value="<?= $appointment->time_end ?>" required>
+		</div>
+
+		<div class="desc field line">
+			<label for="appointment-description">Notes</label>
+			<textarea name="description" id="appointment-description" cols="20" rows="1"></textarea>
+		</div>
+
+		<?php if ($type === "recurrent"): ?>
+			<div class="all field">
+				<input type="checkbox" name="all" id="appointment-all">
+				<label for="appointment-all">Apply to all?</label>
+			</div>
+		<?php endif ?>
+
+		<input type="submit" name="action" id="appointment-update" value="update">
+		<input type="submit" name="action" id="appointment-delete" value="delete">
+	</form>
+</body>
+</html>

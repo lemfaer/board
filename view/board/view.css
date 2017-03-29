@@ -150,7 +150,7 @@ body, html {
 	margin: auto;
 	padding: 20px;
 	border: 1px solid #888;
-	width: 50%;
+	width: 30%;
 }
 
 .close {
@@ -165,4 +165,34 @@ body, html {
 	color: #000;
 	text-decoration: none;
 	cursor: pointer;
+}
+
+.field {
+	margin: 15px 15px 15px 50px;
+}
+
+.field label {
+	color: #555;
+	font-size: 1.2em;
+	margin-right: 5px;
+}
+
+.field.line label {
+	display: inline-block;
+	width: 3em;
+}
+
+.field select, .field textarea {
+	width: 60%;
+}
+
+#appointment-update, #appointment-delete {
+	width: 7em;
+	margin: 10px 0 15px 50px;
+	font-size: 1em;
+	text-transform: capitalize;
+}
+
+#appointment-time-start, #appointment-time-end {
+	width: 29%;
 }
