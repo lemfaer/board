@@ -14,4 +14,7 @@ $uri = trim($_SERVER["REQUEST_URI"], "/");
 $method = $_SERVER["REQUEST_METHOD"];
 
 $router = $cont->get(\Board\Service\Router::class);
+$handler = $cont->get(\Board\Service\Handler::class);
+
+$handler->register();
 echo $router->dispatch($method, $uri);
