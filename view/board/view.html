@@ -20,6 +20,12 @@
 	<link rel="stylesheet" href="/view/board/view.css">
 </head>
 <body>
+	<div class="modal" id="update">
+		<div class="modal-content">
+			<span class="close">&times;</span>
+			<div class="content"></div>
+		</div>
+	</div>
 	<div class="room-cal">
 		<div class="room-co flc">
 			<?php foreach ($rooms as $room): ?>
@@ -131,5 +137,6 @@
 			</div>
 		<?php endif ?>
 	</div>
+	<script src="/view/board/view.js"></script>
 </body>
 </html>
