@@ -31,9 +31,11 @@
 		<div class="room-co flc">
 			<?php foreach ($rooms as $room): ?>
 					<?php if ($room === $current): ?>
-						<span class="current"><a><?= $room->name ?></a></span>
+						<span class="current" data-id="<?= $room->id ?>">
+							<a><?= $room->name ?></a>
+						</span>
 					<?php else: ?>
-						<span>
+						<span data-id="<?= $room->id ?>">
 							<a href="/room-<?= $room->id ?>/<?= $ym ?>">
 								<?= $room->name ?>
 							</a>
@@ -60,7 +62,9 @@
 							<?php $key = DateTime::createFromFormat("Y-m-j", "$ym-$num")->format("Y-m-d"); ?>
 
 							<div>
-								<span class="num"><?= $num ?></span>
+								<span class="num" data-day="<?= $key ?>">
+									<?= $num ?>
+								</span>
 
 								<?php if (isset($appointment[$key]["simple"])): ?>
 									<?php foreach ($appointment[$key]["simple"] as $simple): ?>
@@ -97,20 +101,20 @@
 	<div class="tool-co">
 		<div class="month-year flc">
 			<span class="month">
-				<?= DateTime::createFromFormat("Y-m", $ym)->format("F") ?>
+				<?= DateTime::createFromFormat("Y-m|", $ym)->format("F") ?>
 			</span>
 			<span class="year">
-				<?= DateTime::createFromFormat("Y-m", $ym)->format("Y") ?>
+				<?= DateTime::createFromFormat("Y-m|", $ym)->format("Y") ?>
 			</span>
 		</div>
 
 		<div class="month-nav flc">
 			<?php $dif = new DateInterval("P1M") ?>
 
-			<?php $date = DateTime::createFromFormat("Y-m", $ym) ?>
+			<?php $date = DateTime::createFromFormat("Y-m|", $ym) ?>
 			<?php $lt = "/room-{$current->id}/" . $date->sub($dif)->format("Y-m") ?>
 
-			<?php $date = DateTime::createFromFormat("Y-m", $ym) ?>
+			<?php $date = DateTime::createFromFormat("Y-m|", $ym) ?>
 			<?php $gt = "/room-{$current->id}/" . $date->add($dif)->format("Y-m") ?>
 
 			<button class="lt" onclick="window.location='<?= $lt ?>'">&lt;</button>

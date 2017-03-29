@@ -10,7 +10,7 @@ use Board\Exception\PageNotFound;
 
 class Board extends Controller {
 
-	/** /{Y-m} */
+	/** /room-{room}/{Y-m} */
 	public function main(int $room_id = null, string $ym = null) {
 		$data = [];
 		$data["time"] = $this->conf["time"];

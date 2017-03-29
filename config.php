@@ -17,7 +17,8 @@ return [
 		"user" => "aroot",
 		"pass" => "aroot",
 		"options" => [
-			PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8"
+			\PDO::MYSQL_ATTR_INIT_COMMAND => "set names utf8",
+			\PDO::ATTR_ERRMODE => \PDO::ERRMODE_EXCEPTION
 		]
 	],
 
@@ -46,7 +47,8 @@ return [
 
 		[ "GET",  "~^appointment/create$~", [ \Board\Controller\Appointment::class, "create" ] ],
 		[ "POST", "~^appointment/create$~", [ \Board\Controller\Appointment::class, "create_submit" ] ],
-		[ "GET", "~^appointment/popup/([a-z]+)\-([0-9]+)$~", [ \Board\Controller\Appointment::class, "popup" ] ],
+		[ "GET",  "~^appointment/popup/day\-([0-9]{4}\-[0-9]{2}\-[0-9]{2})/type\-([a-z]+)/([0-9]+)$~", [ \Board\Controller\Appointment::class, "popup" ] ],
+		[ "POST", "~^appointment/popup/day\-([0-9]{4}\-[0-9]{2}\-[0-9]{2})/type\-([a-z]+)/([0-9]+)$~", [ \Board\Controller\Appointment::class, "popup_submit" ] ],
 	],
 
 	"access" => [
@@ -67,13 +69,15 @@ return [
 
 		"appointment.day" => "Day end must be greater than day start",
 		"appointment.time" => "Time end must be greater than time start",
-		"appointment.created" => "Appointment was successfully created"
+		"appointment.created" => "Appointment was successfully created",
+		"appointment.updated" => "Appointment was successfully updated",
+		"appointment.deleted" => "Appointment was successfully deleted"
 	],
 
 	"intervals" => [
 		"week" => new \DateInterval("P1W"),
 		"bi-week" => new \DateInterval("P2W"),
-		"month" => new \DateInterval("P1M")
+		"month" => new \DateInterval("P4W")
 	]
 
 ];

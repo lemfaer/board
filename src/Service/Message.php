@@ -41,7 +41,7 @@ class Message {
 	 * @return bool
 	 */
 	public function exists() {
-		return !empty($session["messages"]);
+		return !empty($this->session["messages"]);
 	}
 
 	/**

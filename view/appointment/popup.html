@@ -9,7 +9,7 @@
 	</title>
 </head>
 <body>
-	<form action="<?= "/appointment/popup/$type-{$appointment->id}" ?>" method="POST">
+	<form action="<?= "/appointment/popup/day-$day/type-$type/{$appointment->id}" ?>" method="POST">
 		<div class="owner field line">
 			<label for="appointment-owner-id">Who</label>
 			<select name="owner_id" id="appointment-owner-id" required>
@@ -24,13 +24,13 @@
 
 		<div class="time field line">
 			<label>When</label>
-			<input type="time" name="time_start" id="appointment-time-start" value="<?= $appointment->time_start ?>" required>
-			<input type="time" name="time_end" id="appointment-time-end" value="<?= $appointment->time_end ?>" required>
+			<input type="time" name="time_start" id="appointment-time-start" value="<?= DateTime::createFromFormat("H:i:s", $appointment->time_start)->format("H:i") ?>" required>
+			<input type="time" name="time_end" id="appointment-time-end" value="<?= DateTime::createFromFormat("H:i:s", $appointment->time_end)->format("H:i") ?>" required>
 		</div>
 
 		<div class="desc field line">
 			<label for="appointment-description">Notes</label>
-			<textarea name="description" id="appointment-description" cols="20" rows="1"></textarea>
+			<textarea name="description" id="appointment-description" cols="20" rows="1"><?= $appointment->description ?></textarea>
 		</div>
 
 		<?php if ($type === "recurrent"): ?>

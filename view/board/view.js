@@ -2,6 +2,11 @@ var modal = document.getElementById("update");
 var close = document.getElementsByClassName("close")[0];
 var appts = document.getElementsByClassName("appt");
 
+var room = document
+	.getElementsByClassName("room-co")[0]
+	.getElementsByClassName("current")[0]
+	.getAttribute("data-id");
+
 window.onclick = function (event) {
 	if (event.target == modal) {
 		modal.style.display = "none";
@@ -23,7 +28,13 @@ for (var i = 0; i < appts.length; i++) {
 		}
 
 		var id = this.getAttribute("data-id");
-		var url = "/appointment/popup/" + type + "-" + id;
+		var day = this.parentElement.getElementsByClassName("num")[0]
+			.getAttribute("data-day");
+
+		var url = "/appointment/popup"
+			+ "/day-" + day
+			+ "/type-" + type
+			+ "/" + id;
 
 		var xhr = new XMLHttpRequest();
 		xhr.open("GET", url, false);

@@ -50,6 +50,7 @@ class Month {
 		}
 
 		foreach ($this->recurs as $recur) {
+			$end = DateTime::createFromFormat("Y-m-d", $recur->day_end);
 			$start = DateTime::createFromFormat("Y-m-d", $recur->day_start);
 			$interval = $this->conf["intervals"][$recur->mode];
 
@@ -58,7 +59,7 @@ class Month {
 					break;
 				}
 
-				$start->add(new DateInterval("P1W"));
+				$start->add($interval);
 			}
 
 			while (true) {
@@ -68,12 +69,15 @@ class Month {
 					break;
 				}
 
-				if (array_key_exists($day, $this->excepts)) {
-					continue;
+				if ($start > $end) {
+					break;
 				}
 
 				$start->add($interval);
-				$month[$day]["recurrent"][] = $recur;
+
+				if (!isset($this->excepts[$recur->id][$day])) {
+					$month[$day]["recurrent"][] = $recur;
+				}
 			}
 		}
 
@@ -172,7 +176,8 @@ class Month {
 		$excepts = [];
 		foreach ($res as $except) {
 			$day = $except["day"];
-			$excepts[$day][] = $except;
+			$for = $except["for_id"];
+			$excepts[$for][$day][] = $except;
 		}
 
 		return $excepts;

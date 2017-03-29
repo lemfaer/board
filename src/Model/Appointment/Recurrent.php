@@ -133,6 +133,15 @@ class Recurrent {
 		$statm->execute($binds);
 	}
 
+	public function except(string $day) : void {
+		$query = "INSERT INTO recurrent_except
+			SET day = ?, for_id = ?";
+
+		$statm = $this->db->prepare($query);
+		$statm->setFetchMode(PDO::FETCH_ASSOC);
+		$statm->execute([ $day, $this->id ]);
+	}
+
 	/**
 	 * Deletes data of recurrent appointment from database
 	 * @return void

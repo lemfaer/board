@@ -111,7 +111,6 @@ body, html {
 
 .messages {
 	margin: 15px 0 0;
-	height: 60%;
 	display: flex;
 	overflow-y: auto;
 	flex-wrap: wrap;
@@ -126,7 +125,7 @@ body, html {
 }
 
 .message {
-	margin: 10px 5px;
+	margin: 10px;
 	white-space: normal;
 	word-wrap: break-word;
 }

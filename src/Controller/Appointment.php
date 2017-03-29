@@ -43,8 +43,8 @@ class Appointment extends Controller {
 		return ($this->redirect)("/");
 	}
 
-	/** /appointment/popup/{type}-{id} */
-	public function popup(string $type, int $id) {
+	/** /appointment/popup/day-{day}/type-{type}/{id} */
+	public function popup(string $day, string $type, int $id) {
 		if ($type === "simple") {
 			$cls = Simple::class;
 		}
@@ -53,12 +53,86 @@ class Appointment extends Controller {
 			$cls = Recurrent::class;
 		}
 
-		$appointment = new $cls($this->connection);
-		$appointment->load($id);
+		try {
+			$appointment = new $cls($this->connection);
+			$appointment->load($id);
+		} catch (Throwable $e) {
+			throw new PageNotFound($e);
+		}
 
 		$owners = Employee::all($this->connection);
 
-		return ($this->view)("appointment.popup", compact("type", "appointment", "owners"));
+		return ($this->view)("appointment.popup",
+			compact("day", "type", "appointment", "owners"));
+	}
+
+	/** /appointment/popup/day-{day}/type-{type}/{id} */
+	public function popup_submit(string $day, string $type, int $id) {
+		if ($type === "simple") {
+			$cls = Simple::class;
+		}
+
+		if ($type === "recurrent") {
+			$cls = Recurrent::class;
+		}
+
+		if ($this->request["action"] === "update") {
+			return $this->update_submit($day, $cls, $id);
+		}
+
+		if ($this->request["action"] === "delete") {
+			return $this->delete_submit($day, $cls, $id);
+		}
+	}
+
+	public function update_submit(string $day, string $cls, int $id) {
+		if (!$this->validate_token() || !$this->validate_time()) {
+			return ($this->redirect)("/");
+		}
+
+		$appointment = new $cls($this->connection);
+		$appointment->load($id);
+		$data = iterator_to_array($this->request);
+
+		if (get_class($appointment) === Simple::class || (isset($this->request["all"]) &&
+				filter_var($this->request["all"], FILTER_VALIDATE_BOOLEAN))) {
+
+			$appointment->from_array($data);
+			$appointment->save();
+		} else {
+			$appointment->except($day);
+			$new_appointment = new Simple($this->connection);
+			$new_appointment->day = $day;
+			$new_appointment->from_array($appointment->to_array());
+			$new_appointment->from_array($data);
+			$new_appointment->save();
+		}
+
+		$room = $appointment->room_id;
+		$ym = DateTime::createFromFormat("Y-m-d", $day)->format("Y-m");
+
+		($this->message)("appointment.updated");
+		return ($this->redirect)("/room-$room/$ym");
+	}
+
+	public function delete_submit(string $day, string $cls, int $id) {
+		$appointment = new $cls($this->connection);
+		$appointment->load($id);
+		$data = iterator_to_array($this->request);
+
+		if (get_class($appointment) === Simple::class || (isset($this->request["all"]) &&
+				filter_var($this->request["all"], FILTER_VALIDATE_BOOLEAN))) {
+
+			$appointment->del();
+		} else {
+			$appointment->except($day);
+		}
+
+		$room = $appointment->room_id;
+		$ym = DateTime::createFromFormat("Y-m-d", $day)->format("Y-m");
+
+		($this->message)("appointment.deleted");
+		return ($this->redirect)("/room-$room/$ym");
 	}
 
 	protected function validate_day() {
