@@ -111,7 +111,7 @@ class Employee extends Controller {
 		}
 
 		$data = iterator_to_array($this->request);
-		$data["pass"] = password_hash($data["pass"], PASSWORD_DEFAULT);
+
 		$data["access"] = array_reduce(
 			array_keys($data["access"]),
 			function ($carry, $item) {
@@ -119,6 +119,10 @@ class Employee extends Controller {
 			},
 			0
 		);
+
+		if (!password_get_info($data["pass"])["algo"]) {
+			$data["pass"] = password_hash($data["pass"], PASSWORD_DEFAULT);
+		}
 
 		$employee->from_array($data);
 		$employee->save();
